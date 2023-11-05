@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="LIVENet A novel network for real-world low-light image denoising and enhancement.">
+  <meta name="keywords" content="low light image enhancement, image denoising, image inpainting">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="./scss/style.css">
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <title>LIVENet</title>
+</head>
+
+<body>
+
+<div class="webpage">
+
+<div class="block-title">
+  <hr>
+  <center>
+
+  <h1 class="publication-title"> 
+    <b> LIVENet</b> <br>Low-light Image Denoising and Enhancement </b> 
+  </h1>
+
+  <h4>WACV 2024</h4>
+
+  <h4 class="publication-authors">
+    <ul class="list-inline">
+      <li><a href="https://scholar.google.com/citations?user=enWWINgAAAAJ/">Dhruv Makwana<sup>1,&#8224;</sup></a>,</li>
+      <li><a href="https://scholar.google.com/citations?user=Sihsr_0AAAAJ/">Gayatri Deshmukh<sup>1,&#8224;</sup></a>,</li>
+      <li><a href="https://scholar.google.com/citations?user=pxBOqNkAAAAJ/">Onkar Susladkar<sup>1,&#8224;</sup></a>,</li>
+      <li><a href="https://scholar.google.com/citations?user=Hz44YrEAAAAJ/">Sparsh Mittal<sup>2</sup></a>,</li>
+      <li><a href="https://scholar.google.com/citations?user=gVSXe1IAAAAJ/">Sai Chandra Teja R<sup>3</sup></a></li>
+    </ul>
+  </h4>
+  <div class="figure">
+    <h5>
+      (1) Independent Researcher (2) IIT Roorkee (3) Green PMU Semi Pvt Ltd
+    </h5>
+   &#8224 Work done while the author was an intern at IIT Roorkee
+      <!-- <img src="images/logos.png"/> -->
+  </div>
+
+  <div class="publication-links">
+    <a href="https://drive.google.com/file/d/1dcbf7a6fGRCjl63utFhcUBUdPGomeqxM/view?usp=sharing"><button class="link-btn">Paper</button></a>
+    <a href="https://github.com/CandleLabAI/LIVENET-WACV-2024"><button class="link-btn">Code</button></a>
+  </div>
+  </center>
+</div>
+
+<div class="block-presentation">
+  <h4> Overview</h4>
+  <div class="figure">
+      <img src="images/teaser.png" width="100%"/>
+  </div>
+
+  <p align="justify">
+  <b>LIVENet</b> is a low-light image enhancement approach (a) that restores realistic colors while reducing noise and (b) recover texture with realistic colours. The values in parenthesis are (PSNR/SSIM) metrics.
+  </p>
+</div>
+
+<div class="block-abstract">
+  <h2>Abstract</h2>
+  <p align="justify">
+    Low-light image enhancement (LLIE) is the process of improving the quality of images taken in low-light conditions
+    while striking a balance between enhancing image illumination and maintaining their natural appearance. This
+    involves reducing noise, enhancing details, and correcting colors, all while avoiding unwanted artifacts such as
+    halo effects or color distortions. We propose LIVENet, a novel deep neural network that jointly performs noise
+    reduction on low-light images and enhances illumination and texture details. LIVENet has two stages: the image
+    enhancement stage and the refinement stage. We propose a Latent Subspace Denoising Block (LSDB) that uses a
+    low-rank representation of low-light features to suppress the noise and predict a noise-free grayscale image. We
+    propose enhancing an RGB image by eliminating noise. This is done by converting it into YCbCr color space and then
+    replacing the noisy luminance (Y) channel with the predicted noisefree grayscale image. LIVENet also predicts the
+    transmission map and atmospheric light in the image enhancement stage. By feeding them to an atmospheric
+    scattering model, LIVENet produces an enhanced image with rich color and illumination. In the refinement stage, we
+    propose an enhancement approach where texture information from the grayscale image is incorporated into the
+    improved image using a Spatial Feature Transform (SFT) layer. Experiments on different datasets demonstrate that
+    LIVENet's enhanced images consistently outperform previous techniques across various quality metrics.
+  </p>
+</div>
+
+<div class="block-method">
+  <h2>Method</h2>
+  <div class="figure">
+      <img src="images/method.png"/>
+      <img src="images/method_1.png"/>
+  </div>
+  <p align="justify">
+    Architecture diagraam and outputs of various modules in LIVENet. The blue values are (PSNR/SSIM/MAE/LPIPS) metrics. A transmission map and a grayscale image are single-channel; hence, these metrics are not shown. The improvement in PSNR and SSIM from [Noisy] coarse map (19.94/0.66) to the Denoised coarse map (27.35/0.75) demonstrates the usefulness of the GSIP and LSDB modules. The improvement in SSIM and LPIPS from the denoised coarse map (0.75/0.18) to Inormal (0.93/0.11) shows the efficacy of the refinement stage and SFT layers.
+  </p>
+</div>
+
+<div class="block-results">
+  <h2>Qualitative results</h2>
+
+  <h4>Results on the LOLv1 dataset</h4>
+  <div class="compare_single">
+
+      <div>
+        <div class="image-container">
+          <div class="cocoen scale single">
+            <img src="./images/lolv1/inp_778.png" />
+            <img src="./images/lolv1/ours_778.png" />
+          </div>
+
+          <div class="cocoen scale single">
+            <img src="./images/lolv1/inp_111.png" />
+            <img src="./images/lolv1/ours_111.png" />
+          </div>
+        </div>
+
+        <div class="image-container">
+          <div class="cocoen scale single">
+            <img src="./images/lolv1/inp_1.png" />
+            <img src="./images/lolv1/ours_1.png" />
+          </div>
+
+          <div class="cocoen scale single">
+            <img src="./images/lolv1/inp_79.png" />
+            <img src="./images/lolv1/ours_79.png" />
+          </div>
+        </div>
+      </div>
+    </div>
+ For each example, we show (from left to right) (i) the input low light image (ii) normal light output of proposed method
+<br>
+<br>
+<br>
+<h4>Results on the LOLv2 dataset</h4>
+  <div class="compare_single">
+
+    <div>
+      <div class="image-container">
+        <div class="cocoen scale single">
+          <img src="./images/lolv2/inp_690.png" />
+          <img src="./images/lolv2/ours_690.png" />
+        </div>
+
+        <div class="cocoen scale single">
+          <img src="./images/lolv2/inp_701.png" />
+          <img src="./images/lolv2/ours_701.png" />
+        </div>
+      </div>
+
+      <div class="image-container">
+        <div class="cocoen scale single">
+          <img src="./images/lolv2/inp_781.png" />
+          <img src="./images/lolv2/ours_781.png" />
+        </div>
+
+        <div class="cocoen scale single">
+          <img src="./images/lolv2/inp_789.png" />
+          <img src="./images/lolv2/ours_789.png" />
+        </div>
+      </div>
+    </div>
+  </div>
+ For each example, we show (from left to right) (i) the input low light image (ii) normal light output of proposed method
+</div>
+  
+<div class="block-usage">
+  <h1>Using LIVENet</h1>
+  <h3> A novel network for real-world low-light image denoising and enhancement. </h3>
+  <p>You can try LIVENet using the pretrained weights and test code. We provide a test code for running LIVENet on low light image in the <a href="https://github.com/CandleLabAI/LIVENET-WACV-2024">github repository</a>.
+  </p>
+</div>
+
+<div class="block-bibtex">
+  <h4> BibTeX</h4>
+  <pre><code>@inproceedings{makwana2024livenet,
+    title={LIVENet: A novel network for real-world low-light image denoising and enhancement},
+    author={Makwana, Dhruv and Deshmukh, Gayatri and Susladkar, Onkar and Mittal, Sparsh and Teja, R},
+    booktitle={Proceedings of the IEEE/CVF Winter Conference on Applications of Computer Vision},
+    year={2024}
+  }</code> </pre>
+</div>
+
+<div class="block-usage">
+    <h4>Acknowledgements</h4>
+    <p>
+      This work was Supported by Science and Engineering Research Board, India under the project CRG/2022/003821.
+    </p>  
+</div>
+
+<hr>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+<!-- <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<script src="./node_modules/popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script src="./node_modules/bootstrap/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script> -->
+
+</body>
+<script type="text/javascript" src="./js/cocoen.js"></script>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.js"
+  integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM=" crossorigin="anonymous"></script>
+
+
+<script>
+
+  $(document).ready(function () {
+    // Initialize cocoen.
+    $('.cocoen').cocoen();
+  });
+
+  document.addEventListener('DOMContentLoaded', function () {
+
+    // Add slider elements.
+    document.querySelectorAll('.cocoen').forEach(function (element) {
+      new Cocoen(element);
+    });
+
+    $("div.cocoen.sid").hide()
+    $("div.cocoen.maharjan").hide()
+    $("div.cocoen.zamir").hide()
+    $("div.cocoen.ma").hide()
+    $("div.video.chen").hide()
+
+  });
+
+  // Single image option changed.
+  $(document).ready(function () {
+    $(".cmp_option_single").change(function () {
+      var prev = $(this).data('val');
+      var selectedStr = $(this).val()
+      updateSliderLeftImage(prev, selectedStr, true)
+
+    });
+
+    // Burst image option changed.
+    $(".cmp_option_burst").change(function () {
+      var prev = $(this).data('val');
+      var selectedStr = $(this).val()
+      updateSliderLeftImage(prev, selectedStr, false)
+
+    });
+
+    // Video option changed.
+    $(document).ready(function () {
+      $(".cmp_option_video").change(function () {
+        var prev = $(this).data('val');
+        var selectedStr = $(this).val()
+        updateVideo(prev, selectedStr)
+      });
+
+
+    });
+
+
+
+  });
+
+</script>
+</html>
